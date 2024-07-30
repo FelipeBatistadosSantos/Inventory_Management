@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Produto</title>
+    <!-- Inclua os arquivos CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Estilização adicional */
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            padding-top: 50px;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        .form-container input[type="text"],
+        .form-container input[type="number"],
+        .form-container textarea,
+        .form-container select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            resize: vertical;
+        }
+        .form-container input[type="text"].is-valid,
+        .form-container input[type="number"].is-valid,
+        .form-container textarea.is-valid,
+        .form-container select.is-valid {
+            border-color: #28a745;
+        }
+        .form-container input[type="text"].is-invalid,
+        .form-container input[type="number"].is-invalid,
+        .form-container textarea.is-invalid,
+        .form-container select.is-invalid {
+            border-color: #dc3545;
+        }
+        .form-container .valid-feedback,
+        .form-container .invalid-feedback {
+            display: none;
+            font-size: 80%;
+            margin-top: .25rem;
+            color: #28a745; /* verde para feedback válido */
+        }
+        .form-container .valid-feedback::before {
+            content: '\2714'; /* ícone de check */
+            margin-right: 5px;
+        }
+        .form-container .invalid-feedback::before {
+            content: '\2718'; /* ícone de x */
+            margin-right: 5px;
+        }
+        .form-container input[type="text"].is-valid + .valid-feedback,
+        .form-container input[type="number"].is-valid + .valid-feedback,
+        .form-container textarea.is-valid + .valid-feedback,
+        .form-container select.is-valid + .valid-feedback {
+            display: block;
+        }
+        .form-container input[type="text"].is-invalid + .invalid-feedback,
+        .form-container input[type="number"].is-invalid + .invalid-feedback,
+        .form-container textarea.is-invalid + .invalid-feedback,
+        .form-container select.is-invalid + .invalid-feedback {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Cadastro de Produto</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" class="needs-validation" novalidate> <!-- Adicionando classes do Bootstrap e validação -->
+                            {% csrf_token %}
+                            <div class="form-container">
+                                {{ products.as_p }} <!-- Inserção do formulário do Django -->
+                            </div>
+                            <button type="submit" class="btn btn-primary">Cadastrar Produto</button> <!-- Botão de submissão -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Inclua os arquivos JavaScript do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

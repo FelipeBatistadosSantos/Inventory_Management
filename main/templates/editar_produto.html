@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Produto</title>
+    <!-- Inclua os arquivos CSS do Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Editar Produto</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="nome">Nome:</label>
+                                <input type="text" class="form-control" id="nome" name="nome" value="{{ produto.nome }}" required>
+                                <div class="invalid-feedback">Por favor, insira o nome do produto.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="preco">Preço:</label>
+                                <input type="text" class="form-control" id="preco" name="preco" value="{{ produto.preco }}" required>
+                                <div class="invalid-feedback">Por favor, insira o preço do produto.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="quantidade">Quantidade:</label>
+                                <input type="text" class="form-control" id="quantidade" name="quantidade" value="{{ produto.quantidade }}" required>
+                                <div class="invalid-feedback">Por favor, insira a quantidade do produto.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="descricao">Descrição:</label>
+                                <textarea class="form-control" id="descricao" name="descricao" required>{{ produto.descricao }}</textarea>
+                                <div class="invalid-feedback">Por favor, insira a descrição do produto.</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="categoria">Categoria:</label>
+                                <select class="form-control" id="categoria" name="categoria" required>
+                                    {% for choice in produto.CATEGORIA_CHOICES %}
+                                        <option value="{{ choice.0 }}" {% if choice.0 == produto.categoria %} selected {% endif %}>{{ choice.1 }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="invalid-feedback">Por favor, selecione a categoria do produto.</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Inclua os arquivos JavaScript do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Adiciona a validação do Bootstrap ao formulário
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                var forms = document.getElementsByClassName('needs-validation');
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+</html>

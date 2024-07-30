@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jardim</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .filter-options {
+            display: none;
+        }
+        .dropdown-menu .categoria {
+            font-family: sans-serif; /* Substitua 'SuaFonte' pela sua fonte personalizada */
+            font-size: 16px; /* Tamanho da fonte */
+            color: #000000; /* Cor do texto */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+            <a class="navbar-brand" href="#">Jardim e Paisagismo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categorias
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            {% with category_choices=products.0.CATEGORIA_CHOICES %}
+                                {% for choice in category_choices %}
+                                    <a class="dropdown-item" href="{% url 'main:categoria_detail' categoria_slug=choice.0 %}">{{ choice.1 }}</a>
+                                {% endfor %}
+                            {% endwith %}
+                        </div> 
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Descrição</th>
+                    <th>Categoria</th>
+                    <th>Gerenciamento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for produto in categoria_produtos %}
+                    <tr>
+                        <td>{{ produto.nome }}</td>
+                        <td>R$ {{ produto.preco }}</td>
+                        <td>{{ produto.quantidade }}</td>
+                        <td>{{ produto.descricao }}</td>
+                        <td>{{ produto.get_categoria_display }}</td>
+                        <td> 
+                            <a href="{% url 'main:editar_produto' produto.id %}" class="btn btn-sm btn-primary">Editar</a>
+                            <a href="{% url 'main:excluir_produto' produto.id %}" class="btn btn-sm btn-danger">Excluir</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>    
+        <a href="{% url 'main:estoque_form' %}" class="btn btn-primary">Inserir novo produto</a>
+    </div>
+    <!-- Include Bootstrap JavaScript files -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
